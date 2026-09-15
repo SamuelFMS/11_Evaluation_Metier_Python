@@ -20,6 +20,9 @@ class Novel:
     author: Optional[Person] = field(default=None, init=False)
     main_character: list[MainCharacter] = field(default_factory=list, init=False)
 
+    def oneline_display(self) -> str:
+        return f"{self.title} - {self.author.firstname} {self.author.lastname}"
+
     def __str__(self) -> str:
         result = f"Titre : {self.title}\n"
         result += f"Auteur : {self.author.firstname} {self.author.lastname}\n" if self.author else "Auteur : Inconnu\n"
