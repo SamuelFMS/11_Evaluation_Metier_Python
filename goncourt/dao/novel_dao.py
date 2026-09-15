@@ -35,3 +35,17 @@ class NovelDao(Dao[Novel]):
         sql = """INSERT INTO step(id_novel, id_round) VALUES (%s, %s)"""
         cursor.execute(sql, (novel_id, id_round))
         return cursor.lastrowid is not None
+
+    def remove_novel_to_round(self, cursor: Cursor, novel_id: int, id_round: int) -> bool:
+        """
+        Remove a novel from the specified round and all subsequent rounds.
+
+        :param cursor: Database cursor used to execute the query.
+        :param novel_id: Identifier of the novel to remove.
+        :param round_id: Identifier of the first round from which the novel is removed.
+        :return: True if at least one row was deleted, otherwise False.
+        """
+        sql = """DELETE FROM step
+        WHERE id_novel = %s AND id_round >= %s"""
+        cursor.execute(sql, (novel_id, id_round))
+        return cursor.rowcount > 0

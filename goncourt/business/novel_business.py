@@ -4,6 +4,7 @@ from dao.novel_dao import NovelDao
 from dao.person_dao import PersonDao
 from dao.round_dao import RoundDao
 from models.novel import Novel
+from models.round import Round
 
 
 class NovelBusiness(Business):
@@ -38,3 +39,13 @@ class NovelBusiness(Business):
         else:
             connection.rollback()
             return False
+
+    def remove_novel_from_round(self, novel_id:int, id_round:int) -> bool:
+        connection = self.connection
+        if self.novel_dao.remove_novel_to_round(connection.cursor(), novel_id, id_round):
+            connection.commit()
+            return True
+        else:
+            connection.rollback()
+            return False
+
