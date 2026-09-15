@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 15 sep. 2026 à 09:05
+-- Généré le : mar. 15 sep. 2026 à 09:36
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -63,7 +63,7 @@ CREATE TABLE `main_character` (
 CREATE TABLE `novel` (
   `id_novel` int(11) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `summary` varchar(50) DEFAULT NULL,
+  `summary` text DEFAULT NULL,
   `editor` varchar(50) DEFAULT NULL,
   `publication_date` date DEFAULT NULL,
   `number_of_pages` smallint(6) DEFAULT NULL,
