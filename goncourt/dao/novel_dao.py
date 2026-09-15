@@ -1,8 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from pymysql.cursors import Cursor
+
 from dao.dao import Dao
+from dao.round_dao import RoundDao
 from models.novel import Novel
+
 
 @dataclass
 class NovelDao(Dao[Novel]):
@@ -14,9 +18,8 @@ class NovelDao(Dao[Novel]):
         novel: Optional[Novel] = None
         if record is not None:
             novel = Novel(title=record["title"], summary=record["summary"], editor=record["editor"],
-                               publication_date=record["publication_date"], number_of_pages=record["number_of_pages"],
-                               ISBN=record["ISBN"], publisher_price=record["publisher_price"])
+                          publication_date=record["publication_date"], number_of_pages=record["number_of_pages"],
+                          ISBN=record["ISBN"], publisher_price=record["publisher_price"])
 
             novel.id_novel = record["id_novel"]
         return novel
-
