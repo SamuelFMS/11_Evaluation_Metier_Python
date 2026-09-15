@@ -29,8 +29,10 @@ class Dao[T](ABC):
         """
         pass
 
-    def get_primary_key(self):
-        return f"id_{self.get_table_name()}"
+    @classmethod
+    def get_primary_key(cls):
+        return f"id_{cls.get_table_name()}"
+
     def get_all(self, cursor: Cursor) -> list[T]:
         """
         Retrieve all entities from the associated database table.
@@ -69,12 +71,7 @@ class Dao[T](ABC):
 
         return self.map_record(record)
 
-    def get_by_related_id(
-        self,
-        cursor: Cursor,
-        dao: "Dao",
-        id_of_dao: int
-    ) -> Optional[T]:
+    def get_by_related_id(self, cursor: Cursor, dao: Dao, id_of_dao: int) -> Optional[T]:
         """
         Retrieve an entity associated with an entity from another table.
 
@@ -102,12 +99,7 @@ class Dao[T](ABC):
 
         return self.map_record(record)
 
-    def get_all_by_related_id(
-        self,
-        cursor: Cursor,
-        related_dao: "Dao",
-        related_id: int
-    ) -> list[T]:
+    def get_all_by_related_id(self, cursor: Cursor, related_dao: Dao, related_id: int) -> list[T]:
         """
         Retrieve all entities associated with an entity from another table.
 
