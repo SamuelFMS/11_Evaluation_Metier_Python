@@ -24,6 +24,14 @@ class NovelDao(Dao[Novel]):
         return novel
 
     def add_novel_to_round(self, cursor: Cursor, novel_id: int, id_round: int) -> bool:
+        """
+        Add a novel to a specific round.
+
+        :param cursor: Database cursor used to execute the query.
+        :param novel_id: Identifier of the novel to add.
+        :param id_round: Identifier of the round in which the novel is added.
+        :return: True if the novel was successfully added, otherwise False.
+        """
         sql = """INSERT INTO step(id_novel, id_round) VALUES (%s, %s)"""
         cursor.execute(sql, (novel_id, id_round))
         return cursor.lastrowid is not None
