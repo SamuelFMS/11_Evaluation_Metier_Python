@@ -126,3 +126,25 @@ class Dao[T](ABC):
                 entities.append(entity)
 
         return entities
+
+    def get_all_by_tiers_table_related_id(self, cursor: Cursor, related_dao: Dao, tiers_table: str, related_id: int) -> list[T]:
+        """
+        Retrieve all entities related to another entity through an intermediate table.
+
+        :param cursor: Database cursor used to execute the query.
+        :param related_dao: DAO representing the related entity.
+        :param tiers_table: Name of the intermediate table linking both entities.
+        :param related_id: Identifier of the related entity.
+        :return: A list containing all entities associated with the related entity.
+        """
+        entities: list[T] = []
+        sql = f"""SELECT * FROM {self.get_table_name()}
+        JOIN {tiers_table} on {tiers_table}.{self.get_primary_key()} = {self.get_table_name()}.{self.get_primary_key()}
+        WHERE {tiers_table}.{related_dao.get_primary_key()} = %s
+        """
+        cursor.execute(sql, (related_id,))
+        for record in cursor.fetchall():
+            entity = self.map_record(record)
+            if entity is not None:
+                entities.append(entity)
+        return entities
