@@ -29,6 +29,8 @@ class Dao[T](ABC):
         """
         pass
 
+    def get_primary_key(self):
+        return f"id_{self.get_table_name()}"
     def get_all(self, cursor: Cursor) -> list[T]:
         """
         Retrieve all entities from the associated database table.
@@ -57,7 +59,7 @@ class Dao[T](ABC):
         """
         sql = f"""
         SELECT * FROM {self.get_table_name()}
-        WHERE id_{self.get_table_name()}=%s
+        WHERE {self.get_primary_key()}=%s
         """
         cursor.execute(sql, (id,))
         record = cursor.fetchone()
@@ -88,9 +90,9 @@ class Dao[T](ABC):
         SELECT {self.get_table_name()}.*
         FROM {self.get_table_name()}
         JOIN {dao.get_table_name()}
-        ON {dao.get_table_name()}.id_{self.get_table_name()}
-            = {self.get_table_name()}.id_{self.get_table_name()}
-        WHERE {dao.get_table_name()}.id_{dao.get_table_name()}=%s
+        ON {dao.get_table_name()}.{self.get_primary_key()}
+            = {self.get_table_name()}.{self.get_primary_key()}
+        WHERE {dao.get_table_name()}.{dao.get_primary_key()}=%s
         """
         cursor.execute(sql, (id_of_dao,))
         record = cursor.fetchone()
@@ -120,9 +122,9 @@ class Dao[T](ABC):
         SELECT {self.get_table_name()}.*
         FROM {self.get_table_name()}
         JOIN {related_dao.get_table_name()}
-        ON {related_dao.get_table_name()}.id_{related_dao.get_table_name()}
-            = {self.get_table_name()}.id_{related_dao.get_table_name()}
-        WHERE {related_dao.get_table_name()}.id_{related_dao.get_table_name()}=%s
+        ON {related_dao.get_table_name()}.{related_dao.get_primary_key()}
+            = {self.get_table_name()}.{related_dao.get_primary_key()}
+        WHERE {related_dao.get_table_name()}.{related_dao.get_primary_key()}=%s
         """
         cursor.execute(sql, (related_id,))
 
