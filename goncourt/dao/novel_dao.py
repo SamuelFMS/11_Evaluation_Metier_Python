@@ -4,7 +4,6 @@ from typing import Optional
 from pymysql.cursors import Cursor
 
 from dao.dao import Dao
-from dao.round_dao import RoundDao
 from models.novel import Novel
 
 
@@ -23,3 +22,8 @@ class NovelDao(Dao[Novel]):
 
             novel.id_novel = record["id_novel"]
         return novel
+
+    def add_novel_to_round(self, cursor: Cursor, novel_id: int, id_round: int) -> bool:
+        sql = """INSERT INTO step(id_novel, id_round) VALUES (%s, %s)"""
+        cursor.execute(sql, (novel_id, id_round))
+        return cursor.lastrowid is not None

@@ -29,3 +29,12 @@ class NovelBusiness(Business):
                     novel.author = self.person_dao.get_by_related_id(self.connection.cursor(), self.novel_dao, novel.id_novel)
                     novel.main_character = self.main_character_dao.get_all_by_related_id(self.connection.cursor(), self.novel_dao, novel.id_novel)
         return list_novels
+
+    def add_novel_to_round(self, novel_id:int, id_round:int) -> bool:
+        connection = self.connection
+        if self.novel_dao.add_novel_to_round(connection.cursor(), novel_id, id_round):
+            connection.commit()
+            return True
+        else:
+            connection.rollback()
+            return False
