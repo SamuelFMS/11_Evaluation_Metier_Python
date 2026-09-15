@@ -4,7 +4,7 @@ from typing import Optional
 
 @dataclass
 class Person:
-    id_author: Optional[int] = field(default=None, init=False)
-    first_name: str
-    last_name: str
+    id_person: Optional[int] = field(default=None, init=False)
+    firstname: str
+    lastname: str
     biography: str
