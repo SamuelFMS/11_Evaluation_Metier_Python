@@ -26,9 +26,9 @@ class TestNovel(unittest.TestCase):
             assert result.id_novel is not None
 
     def test_novel_add_novel_to_round(self):
-        results = self.novel_business.add_novel_to_round(1,1)
+        results = self.novel_business.add_novel_to_round(1,1, 2026)
         assert results
 
     def test_novel_remove_novel_from_round(self):
-        results = self.novel_business.remove_novel_from_round(1,1)
+        results = self.novel_business.remove_novel_from_round(1,1, 2026)
         assert results
