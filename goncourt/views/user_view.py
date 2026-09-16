@@ -49,18 +49,21 @@ class UserView:
         :param round_business: Business service used to retrieve rounds.
         :param selected_year: Year of the selected Goncourt session.
         """
-        print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
-
         rounds = round_business.get_round_for_year(selected_year)
+        loop_select_round = True
+        while loop_select_round:
+            print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
+            print("0. Arreter")
+            for index, round_ in enumerate(rounds, start=1):
+                print(f"{index}. Afficher la sélection n°{round_.number}")
 
-        for index, round_ in enumerate(rounds, start=1):
-            print(f"{index}. Afficher la sélection n°{round_.number}")
-
-        if rounds:
-            choice = input_utils.input_number("\nVotre choix : ", 1, len(rounds))
-
-            selected_round = rounds[choice - 1]
-            cls.display_round_novels(novel_business, selected_round)
+            if rounds:
+                choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds))
+                if choice == 0:
+                    loop_select_round = False
+                    continue
+                selected_round = rounds[choice - 1]
+                cls.display_round_novels(novel_business, selected_round)
 
     @classmethod
     def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round):
@@ -77,3 +80,5 @@ class UserView:
 
             for novel in novels:
                 print(novel)
+
+        input()
