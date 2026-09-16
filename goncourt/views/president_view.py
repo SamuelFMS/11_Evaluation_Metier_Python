@@ -51,26 +51,32 @@ class PresidentView:
         :param round_business: Business service used to retrieve rounds.
         :param selected_year: Year of the selected Goncourt session.
         """
-        print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
-
         rounds = round_business.get_round_for_year(selected_year)
 
-        for index, round_ in enumerate(rounds, start=1):
-            print(f"{index}. Éditer la sélection n°{round_.number}")
+        display_select_round = True
+        while display_select_round:
+            print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
+            print("0. Stop")
+            for index, round_ in enumerate(rounds, start=1):
+                print(f"{index}. Éditer la sélection n°{round_.number}")
 
-        if not rounds:
-            return
+            if not rounds:
+                return
 
-        choice = input_utils.input_number("\nVotre choix : ", 1, len(rounds))
+            choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds))
 
-        selected_round = rounds[choice - 1]
-        previous_round = None
+            if choice == 0:
+                display_select_round = False
+                continue
 
-        for round_ in rounds:
-            if round_.number == selected_round.number - 1:
-                previous_round = round_
+            selected_round = rounds[choice - 1]
+            previous_round = None
 
-        cls.display_round_novels(novel_business, selected_round, previous_round)
+            for round_ in rounds:
+                if round_.number == selected_round.number - 1:
+                    previous_round = round_
+
+            cls.display_round_novels(novel_business, selected_round, previous_round)
 
     @classmethod
     def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round,
@@ -83,33 +89,36 @@ class PresidentView:
         :param selected_round: Round currently being edited.
         :param previous_round: Previous round used to determine available novels.
         """
-        print(f"\n========== SÉLECTION N°{selected_round.number} ==========\n")
+        display_round = True
+        while(display_round):
+            print(f"\n========== SÉLECTION N°{selected_round.number} ==========\n")
 
-        if selected_round.id_round is None:
-            return
+            if selected_round.id_round is None:
+                return
 
-        selected_novels = novel_business.get_all_from_round(selected_round.id_round)
+            selected_novels = novel_business.get_all_from_round(selected_round.id_round)
 
-        available_novels = cls.get_available_novels(novel_business, previous_round)
+            available_novels = cls.get_available_novels(novel_business, previous_round)
 
-        cls.display_novels(available_novels, selected_novels)
+            cls.display_novels(available_novels, selected_novels)
 
-        choice = input_utils.input_number("\nVotre choix : ", 0, len(available_novels))
+            choice = input_utils.input_number("\nVotre choix : ", 0, len(available_novels))
 
-        if choice == 0:
-            return
+            if choice == 0:
+                display_round = False
+                continue
 
-        chosen_novel = available_novels[choice - 1]
+            chosen_novel = available_novels[choice - 1]
 
-        if chosen_novel.id_novel is None:
-            return
+            if chosen_novel.id_novel is None:
+                return
 
-        already_selected = any(novel.id_novel == chosen_novel.id_novel for novel in selected_novels)
+            already_selected = any(novel.id_novel == chosen_novel.id_novel for novel in selected_novels)
 
-        if already_selected:
-            cls.remove_novel(novel_business, chosen_novel.id_novel, selected_round.id_round)
-        else:
-            cls.add_novel(novel_business, chosen_novel.id_novel, selected_round.id_round)
+            if already_selected:
+                cls.remove_novel(novel_business, chosen_novel.id_novel, selected_round.id_round)
+            else:
+                cls.add_novel(novel_business, chosen_novel.id_novel, selected_round.id_round)
 
     @classmethod
     def get_available_novels(cls, novel_business: NovelBusiness, previous_round: Optional[Round]) -> list[Novel]:
