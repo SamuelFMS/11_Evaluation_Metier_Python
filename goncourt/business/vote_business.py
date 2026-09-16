@@ -1,3 +1,4 @@
+from multiprocessing import connection
 from typing import List
 
 from business.business import Business
@@ -20,4 +21,8 @@ class VoteBusiness(Business):
         return list_votes
 
     def set_note(self, vote: Vote) -> bool:
-        return self.vote_dao.update_note(self.get_connection().cursor(), vote)
+        if(self.vote_dao.update_note(self.get_connection().cursor(), vote)):
+            self.get_connection().commit()
+            return True
+        else:
+            return False
