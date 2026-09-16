@@ -76,15 +76,16 @@ class PresidentView:
                 if round_.number == selected_round.number - 1:
                     previous_round = round_
 
-            cls.display_round_novels(novel_business, selected_round, previous_round)
+            cls.display_round_novels(novel_business, selected_round, previous_round, selected_year)
 
     @classmethod
     def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round,
-            previous_round: Optional[Round]):
+            previous_round: Optional[Round], year: int):
         """
         Display the novels available for the selected round and allow the
         president to add or remove a novel.
 
+        :param year:
         :param novel_business: Business service used to manage novels.
         :param selected_round: Round currently being edited.
         :param previous_round: Previous round used to determine available novels.
@@ -116,9 +117,9 @@ class PresidentView:
             already_selected = any(novel.id_novel == chosen_novel.id_novel for novel in selected_novels)
 
             if already_selected:
-                cls.remove_novel(novel_business, chosen_novel.id_novel, selected_round.id_round)
+                cls.remove_novel(novel_business, chosen_novel.id_novel, selected_round.id_round, year)
             else:
-                cls.add_novel(novel_business, chosen_novel.id_novel, selected_round.id_round)
+                cls.add_novel(novel_business, chosen_novel.id_novel, selected_round.id_round, year)
 
     @classmethod
     def get_available_novels(cls, novel_business: NovelBusiness, previous_round: Optional[Round]) -> list[Novel]:
@@ -151,17 +152,17 @@ class PresidentView:
             print(f"[{index}] [{marker}] {novel.oneline_display()}")
 
     @classmethod
-    def remove_novel(cls, novel_business: NovelBusiness, novel_id: int, round_id: int):
+    def remove_novel(cls, novel_business: NovelBusiness, novel_id: int, round_id: int, year: int):
         """Remove a novel from the selected round."""
-        if novel_business.remove_novel_from_round(novel_id, round_id):
+        if novel_business.remove_novel_from_round(novel_id, round_id, year):
             print("Roman retiré avec succès.")
         else:
             print("Échec de la suppression du roman.")
 
     @classmethod
-    def add_novel(cls, novel_business: NovelBusiness, novel_id: int, round_id: int):
+    def add_novel(cls, novel_business: NovelBusiness, novel_id: int, round_id: int, year: int):
         """Add a novel to the selected round."""
-        if novel_business.add_novel_to_round(novel_id, round_id):
+        if novel_business.add_novel_to_round(novel_id, round_id, year):
             print("Roman ajouté avec succès.")
         else:
             print("Échec de l'ajout du roman.")

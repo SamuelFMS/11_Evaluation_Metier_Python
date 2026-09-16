@@ -5,8 +5,8 @@ from dao.main_character_dao import MainCharacterDao
 from dao.novel_dao import NovelDao
 from dao.person_dao import PersonDao
 from dao.round_dao import RoundDao
+from dao.vote_dao import VoteDao
 from models.novel import Novel
-from models.round import Round
 
 
 class NovelBusiness(Business):
@@ -14,6 +14,7 @@ class NovelBusiness(Business):
     person_dao: PersonDao = PersonDao()
     main_character_dao: MainCharacterDao = MainCharacterDao()
     round_dao: RoundDao = RoundDao()
+    vote_dao: VoteDao = VoteDao()
 
     def get_by_id(self, id:int) -> Optional[Novel]:
         novel = self.novel_dao.get_by_id(self.get_connection().cursor(), id)
@@ -40,20 +41,28 @@ class NovelBusiness(Business):
                     novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
         return list_novels
 
-    def add_novel_to_round(self, novel_id:int, id_round:int) -> bool:
+    def add_novel_to_round(self, novel_id:int, id_round:int, year: int) -> bool:
         connection = self.get_connection()
         if self.novel_dao.add_novel_to_round(connection.cursor(), novel_id, id_round):
-            connection.commit()
-            return True
+            if self.vote_dao.add_vote_for_year(connection.cursor(), year):
+                connection.commit()
+                return True
+            else:
+                connection.rollback()
+                return False
         else:
             connection.rollback()
             return False
 
-    def remove_novel_from_round(self, novel_id:int, id_round:int) -> bool:
+    def remove_novel_from_round(self, novel_id:int, id_round:int, year: int) -> bool:
         connection = self.get_connection()
         if self.novel_dao.remove_novel_to_round(connection.cursor(), novel_id, id_round):
-            connection.commit()
-            return True
+            if self.vote_dao.remove_vote_for_year(connection.cursor(), year):
+                connection.commit()
+                return True
+            else:
+                connection.rollback()
+                return False
         else:
             connection.rollback()
             return False
