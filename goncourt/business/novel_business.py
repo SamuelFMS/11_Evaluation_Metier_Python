@@ -1,3 +1,5 @@
+from typing import Optional
+
 from business.business import Business
 from dao.main_character_dao import MainCharacterDao
 from dao.novel_dao import NovelDao
@@ -12,6 +14,13 @@ class NovelBusiness(Business):
     person_dao: PersonDao = PersonDao()
     main_character_dao: MainCharacterDao = MainCharacterDao()
     round_dao: RoundDao = RoundDao()
+
+    def get_by_id(self, id:int) -> Optional[Novel]:
+        novel = self.novel_dao.get_by_id(self.get_connection().cursor(), id)
+        if novel is not None and novel.id_novel is not None:
+            novel.author= self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
+            novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
+        return novel
 
     def get_all(self)-> list[Novel]:
         list_novels = self.novel_dao.get_all(self.get_connection().cursor())
