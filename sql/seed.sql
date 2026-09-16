@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 15 sep. 2026 à 15:56
+-- Généré le : mer. 16 sep. 2026 à 09:11
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -27,6 +27,33 @@ SET time_zone = "+00:00";
 
 INSERT INTO `goncourt` (`id_year`) VALUES
 (2026);
+
+--
+-- Déchargement des données de la table `main_character`
+--
+
+INSERT INTO `main_character` (`id_main_character`, `name`, `id_novel`) VALUES
+(1, 'Le narrateur', 1),
+(2, 'Le père', 1),
+(3, 'La narratrice', 2),
+(4, 'La mère', 2),
+(5, 'Sonia Devillers', 4),
+(6, 'Olivier Grondeau', 6),
+(7, 'Jean Deichel', 7),
+(8, 'Antoinette Cosway', 8),
+(9, 'Edward Rochester', 8),
+(10, 'Louise Cansot', 9),
+(11, 'Philippe Jaenada', 9),
+(12, 'Inspecteur Ferrière', 9),
+(13, 'Jacob Michael Lenz', 10),
+(14, 'La narratrice', 11),
+(15, 'La femme qui se suicide', 11),
+(16, 'La narratrice', 12),
+(17, 'Jonas Dorléon', 13),
+(18, 'La photographe', 14),
+(19, 'Olivier Rolin', 15),
+(20, 'Georges Bataille', 16),
+(21, 'Jean-Jacques Pauvert', 16);
 
 --
 -- Déchargement des données de la table `novel`
@@ -86,11 +113,35 @@ INSERT INTO `round` (`id_round`, `number`, `date_`, `id_year`) VALUES
 --
 
 INSERT INTO `step` (`id_novel`, `id_round`) VALUES
+(1, 1),
 (2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
 (8, 1),
+(9, 1),
 (10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
 (16, 1),
-(2, 2);
+(1, 2),
+(2, 2),
+(15, 2),
+(1, 3),
+(15, 3);
+
+--
+-- Déchargement des données de la table `vote`
+--
+
+INSERT INTO `vote` (`id_vote`, `number_of_vote`, `id_novel`, `id_year`) VALUES
+(2, 2, 15, 2026),
+(4, 10, 1, 2026);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
