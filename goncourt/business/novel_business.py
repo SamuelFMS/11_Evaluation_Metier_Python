@@ -7,7 +7,6 @@ from dao.person_dao import PersonDao
 from dao.round_dao import RoundDao
 from dao.vote_dao import VoteDao
 from models.novel import Novel
-from models.round import Round
 
 
 class NovelBusiness(Business):
@@ -72,17 +71,18 @@ class NovelBusiness(Business):
         :return:
         """
         connection = self.get_connection()
-        round_number = self.round_dao.get_number(connection.cursor(), id_round)
-        round_number_max = self.round_dao.get_max_round_number(connection.cursor(), year)
+        cursor = connection.cursor()
+        round_number = self.round_dao.get_number(cursor, id_round)
+        round_number_max = self.round_dao.get_max_round_number(cursor, year)
         if round_number == round_number_max:
-            self.vote_dao.add_vote_for_year(connection.cursor(), novel_id, year)
+            self.vote_dao.add_vote_for_year(cursor, novel_id, year)
 
-        if self.novel_dao.add_novel_to_round(connection.cursor(), novel_id, id_round):
+        if self.novel_dao.add_novel_to_round(cursor, novel_id, id_round):
             connection.commit()
             return True
         else:
             connection.rollback()
-            return False
+            assert False
 
     def remove_novel_from_round(self, novel_id: int, id_round: int, year: int) -> bool:
         """
@@ -93,14 +93,15 @@ class NovelBusiness(Business):
         :return:
         """
         connection = self.get_connection()
+        cursor = connection.cursor()
         print(novel_id)
-        if self.novel_dao.remove_novel_to_round(connection.cursor(), novel_id, id_round):
-            if self.vote_dao.remove_vote_for_year(connection.cursor(),novel_id, year):
+        if self.novel_dao.remove_novel_to_round(cursor, novel_id, id_round):
+            if self.vote_dao.remove_vote_for_year(cursor, novel_id, year):
                 connection.commit()
                 return True
             else:
                 connection.rollback()
-                return False
+                assert False
         else:
             connection.rollback()
-            return False
+            assert False

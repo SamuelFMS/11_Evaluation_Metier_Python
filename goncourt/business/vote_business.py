@@ -10,6 +10,7 @@ from models.vote import Vote
 class VoteBusiness(Business):
     vote_dao = VoteDao()
     goncourt_dao: GoncourtDao = GoncourtDao()
+    novel_business: NovelBusiness = NovelBusiness()
 
     def get_vote_for_year(self, year: int) -> list[Vote]:
         """
@@ -17,11 +18,10 @@ class VoteBusiness(Business):
         :param year:
         :return:
         """
-        novel_business: NovelBusiness = NovelBusiness()
-        list_votes: List[Vote] = self.vote_dao.get_all_by_related_id(self.get_connection().cursor(), self.goncourt_dao,
-                                                                     year)
+        cursor = self.get_connection().cursor()
+        list_votes: List[Vote] = self.vote_dao.get_all_by_related_id(cursor, self.goncourt_dao, year)
         for vote in list_votes:
-            vote.novel = novel_business.get_by_id(vote.novel_id)
+            vote.novel = self.novel_business.get_by_id(vote.novel_id)
         return list_votes
 
     def set_note(self, vote: Vote) -> bool:

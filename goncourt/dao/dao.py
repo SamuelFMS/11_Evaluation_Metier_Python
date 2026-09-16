@@ -123,16 +123,15 @@ class Dao[T](ABC):
         WHERE {related_dao.get_table_name()}.{related_dao.get_primary_key()}=%s
         """
         cursor.execute(sql, (related_id,))
-
         for record in cursor.fetchall():
             entity: Optional[T] = self.map_record(record)
-            if entity is not None:
-                entities.append(entity)
+            assert entity
+            entities.append(entity)
 
         return entities
 
     def get_all_by_tiers_table_related_id(self, cursor: Cursor, related_dao: Dao, tiers_table: str, related_id: int) -> \
-    list[T]:
+            list[T]:
         """
         Retrieve all entities related to another entity through an intermediate table.
 

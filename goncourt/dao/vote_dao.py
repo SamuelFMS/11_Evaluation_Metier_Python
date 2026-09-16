@@ -18,7 +18,7 @@ class VoteDao(Dao[Vote]):
             vote.id_vote = record["id_vote"]
         return vote
 
-    def remove_vote_for_year(self, cursor, id_novel:int, year: int):
+    def remove_vote_for_year(self, cursor, id_novel: int, year: int):
         """
         Remove unused vote for the given year.
         :param cursor:
@@ -31,7 +31,7 @@ class VoteDao(Dao[Vote]):
         cursor.execute(sql, {"id_year": year, "id_novel": id_novel})
         return True
 
-    def add_vote_for_year(self, cursor,id_novel: int, year: int):
+    def add_vote_for_year(self, cursor, id_novel: int, year: int):
         """
         Adding vote to the year
         :param cursor:
