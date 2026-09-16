@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mer. 16 sep. 2026 à 09:11
+-- Généré le : mer. 16 sep. 2026 à 14:08
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -103,10 +103,10 @@ INSERT INTO `person` (`id_person`, `lastname`, `firstname`, `biography`) VALUES
 -- Déchargement des données de la table `round`
 --
 
-INSERT INTO `round` (`id_round`, `number`, `date_`, `id_year`) VALUES
-(1, 1, NULL, 2026),
-(2, 2, NULL, 2026),
-(3, 3, NULL, 2026);
+INSERT INTO `round` (`id_round`, `date_`, `id_year`, `id_round_parent`) VALUES
+(1, NULL, 2026, NULL),
+(2, NULL, 2026, 1),
+(3, NULL, 2026, 2);
 
 --
 -- Déchargement des données de la table `step`
@@ -131,17 +131,26 @@ INSERT INTO `step` (`id_novel`, `id_round`) VALUES
 (16, 1),
 (1, 2),
 (2, 2),
-(15, 2),
+(3, 2),
+(4, 2),
+(5, 2),
+(6, 2),
+(7, 2),
+(8, 2),
 (1, 3),
-(15, 3);
+(2, 3),
+(3, 3),
+(4, 3);
 
 --
 -- Déchargement des données de la table `vote`
 --
 
 INSERT INTO `vote` (`id_vote`, `number_of_vote`, `id_novel`, `id_year`) VALUES
-(2, 2, 15, 2026),
-(4, 10, 1, 2026);
+(22, 10, 2, 2026),
+(23, 5, 3, 2026),
+(24, 2, 4, 2026),
+(25, 0, 1, 2026);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 15 sep. 2026 à 15:54
+-- Généré le : mer. 16 sep. 2026 à 14:08
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `goncourt`
+-- Base de données : `goncourt_test`
 --
 
 -- --------------------------------------------------------
@@ -105,9 +105,9 @@ CREATE TABLE `roster` (
 
 CREATE TABLE `round` (
   `id_round` int(11) NOT NULL,
-  `number` int(50) DEFAULT NULL,
   `date_` date DEFAULT NULL,
-  `id_year` smallint(6) NOT NULL
+  `id_year` smallint(6) NOT NULL,
+  `id_round_parent` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- --------------------------------------------------------
@@ -183,7 +183,8 @@ ALTER TABLE `roster`
 --
 ALTER TABLE `round`
   ADD PRIMARY KEY (`id_round`),
-  ADD KEY `id_year` (`id_year`);
+  ADD KEY `id_year` (`id_year`),
+  ADD KEY `fk_round_parent` (`id_round_parent`);
 
 --
 -- Index pour la table `step`
@@ -273,6 +274,7 @@ ALTER TABLE `roster`
 -- Contraintes pour la table `round`
 --
 ALTER TABLE `round`
+  ADD CONSTRAINT `fk_round_parent` FOREIGN KEY (`id_round_parent`) REFERENCES `round` (`id_round`),
   ADD CONSTRAINT `round_ibfk_1` FOREIGN KEY (`id_year`) REFERENCES `goncourt` (`id_year`);
 
 --
