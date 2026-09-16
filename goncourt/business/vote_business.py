@@ -18,3 +18,6 @@ class VoteBusiness(Business):
         for vote in list_votes:
             vote.novel = novel_business.get_by_id(vote.novel_id)
         return list_votes
+
+    def set_note(self, vote: Vote) -> bool:
+        return self.vote_dao.update_note(self.get_connection().cursor(), vote)

@@ -54,3 +54,10 @@ class VoteDao(Dao[Vote]):
                       );"""
         cursor.execute(sql, {"id_year": year})
         return True
+
+    def update_note(self, cursor, vote: Vote):
+        sql = f"""UPDATE {self.get_table_name()}
+                SET number_of_vote = %(number_of_vote)s
+                WHERE {self.get_table_name()}.{self.get_primary_key()} = %(id_novel)s"""
+        cursor.execute(sql, {"number_of_vote": vote.number_of_votes,"id_novel": vote.id_vote})
+        return cursor.rowcount == 1

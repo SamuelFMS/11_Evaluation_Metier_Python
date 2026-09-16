@@ -1,11 +1,14 @@
 from typing import Optional
+from xmlrpc.client import MAXINT
 
 from business.goncourt_business import GoncourtBusiness
 from business.novel_business import NovelBusiness
 from business.round_business import RoundBusiness
+from business.vote_business import VoteBusiness
 from models.goncourt import Goncourt
 from models.novel import Novel
 from models.round import Round
+from models.vote import Vote
 from utils import input_utils
 
 
@@ -18,12 +21,13 @@ class PresidentView:
         goncourt_business = GoncourtBusiness()
         novel_business = NovelBusiness()
         round_business = RoundBusiness()
+        vote_business = VoteBusiness()
 
         sessions: list[Goncourt] = goncourt_business.get_all()
-        cls.select_session(novel_business, round_business, sessions)
+        cls.select_session(novel_business, round_business, sessions, vote_business)
 
     @classmethod
-    def select_session(cls, novel_business: NovelBusiness, round_business: RoundBusiness, sessions: list[Goncourt]):
+    def select_session(cls, novel_business: NovelBusiness, round_business: RoundBusiness, sessions: list[Goncourt], vote_business: VoteBusiness):
         """
         Display all available Goncourt sessions and let the user select one.
 
@@ -39,10 +43,10 @@ class PresidentView:
         choice = input_utils.input_number("\nVeuillez choisir une session : ", 1, len(sessions))
 
         selected_year = sessions[choice - 1].year
-        cls.select_round(novel_business, round_business, selected_year)
+        cls.select_round(novel_business, round_business,vote_business, selected_year)
 
     @classmethod
-    def select_round(cls, novel_business: NovelBusiness, round_business: RoundBusiness, selected_year: int):
+    def select_round(cls, novel_business: NovelBusiness, round_business: RoundBusiness, vote_business: VoteBusiness, selected_year: int):
         """
         Display all rounds of the selected Goncourt session and let the user
         choose a round to edit.
@@ -59,24 +63,26 @@ class PresidentView:
             print("0. Stop")
             for index, round_ in enumerate(rounds, start=1):
                 print(f"{index}. Éditer la sélection n°{round_.number}")
-
+            print(f"{len(rounds)+1}. Éditer les notes")
             if not rounds:
                 return
 
-            choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds))
+            choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds)+1)
 
             if choice == 0:
                 display_select_round = False
                 continue
+            elif choice == len(rounds)+1:
+                cls.edit_notes(vote_business, selected_year)
+            else:
+                selected_round = rounds[choice - 1]
+                previous_round = None
 
-            selected_round = rounds[choice - 1]
-            previous_round = None
+                for round_ in rounds:
+                    if round_.number == selected_round.number - 1:
+                        previous_round = round_
 
-            for round_ in rounds:
-                if round_.number == selected_round.number - 1:
-                    previous_round = round_
-
-            cls.display_round_novels(novel_business, selected_round, previous_round, selected_year)
+                cls.display_round_novels(novel_business, selected_round, previous_round, selected_year)
 
     @classmethod
     def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round,
@@ -166,3 +172,24 @@ class PresidentView:
             print("Roman ajouté avec succès.")
         else:
             print("Échec de l'ajout du roman.")
+
+    @classmethod
+    def edit_notes(cls, vote_business: VoteBusiness, year: int):
+        changing_notes = True
+        while changing_notes:
+            list_vote: list[Vote] = vote_business.get_vote_for_year(year)
+
+            print("[0] retour en arrière")
+            index=1
+            for vote in list_vote:
+                print(f"[{index}] {vote.novel.oneline_display()} ({vote.number_of_votes} votes)")
+                index+=1
+            choice = input_utils.input_number("\nVotre choix : ", 0, len(list_vote))
+            if choice == 0:
+                changing_notes = False
+            else:
+                vote = list_vote[choice - 1]
+                new_note = input_utils.input_number("\nVotre note : ", 0, MAXINT)
+                vote.number_of_votes = new_note
+                vote_business.set_note(vote)
+
