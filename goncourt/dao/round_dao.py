@@ -4,6 +4,7 @@ from typing import Optional
 from dao.dao import Dao
 from models.round import Round
 
+
 @dataclass
 class RoundDao(Dao[Round]):
     @classmethod

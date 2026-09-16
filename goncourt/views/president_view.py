@@ -27,7 +27,8 @@ class PresidentView:
         cls.select_session(novel_business, round_business, sessions, vote_business)
 
     @classmethod
-    def select_session(cls, novel_business: NovelBusiness, round_business: RoundBusiness, sessions: list[Goncourt], vote_business: VoteBusiness):
+    def select_session(cls, novel_business: NovelBusiness, round_business: RoundBusiness, sessions: list[Goncourt],
+                       vote_business: VoteBusiness):
         """
         Display all available Goncourt sessions and let the user select one.
 
@@ -43,10 +44,11 @@ class PresidentView:
         choice = input_utils.input_number("\nVeuillez choisir une session : ", 1, len(sessions))
 
         selected_year = sessions[choice - 1].year
-        cls.select_round(novel_business, round_business,vote_business, selected_year)
+        cls.select_round(novel_business, round_business, vote_business, selected_year)
 
     @classmethod
-    def select_round(cls, novel_business: NovelBusiness, round_business: RoundBusiness, vote_business: VoteBusiness, selected_year: int):
+    def select_round(cls, novel_business: NovelBusiness, round_business: RoundBusiness, vote_business: VoteBusiness,
+                     selected_year: int):
         """
         Display all rounds of the selected Goncourt session and let the user
         choose a round to edit.
@@ -63,16 +65,16 @@ class PresidentView:
             print("0. Stop")
             for index, round_ in enumerate(rounds, start=1):
                 print(f"{index}. Éditer la sélection n°{round_.number}")
-            print(f"{len(rounds)+1}. Éditer les notes")
+            print(f"{len(rounds) + 1}. Éditer les notes")
             if not rounds:
                 return
 
-            choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds)+1)
+            choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds) + 1)
 
             if choice == 0:
                 display_select_round = False
                 continue
-            elif choice == len(rounds)+1:
+            elif choice == len(rounds) + 1:
                 cls.edit_notes(vote_business, selected_year)
             else:
                 selected_round = rounds[choice - 1]
@@ -85,8 +87,8 @@ class PresidentView:
                 cls.display_round_novels(novel_business, selected_round, previous_round, selected_year)
 
     @classmethod
-    def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round,
-            previous_round: Optional[Round], year: int):
+    def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round, previous_round: Optional[Round],
+                             year: int):
         """
         Display the novels available for the selected round and allow the
         president to add or remove a novel.
@@ -97,7 +99,7 @@ class PresidentView:
         :param previous_round: Previous round used to determine available novels.
         """
         display_round = True
-        while(display_round):
+        while (display_round):
             print(f"\n========== SÉLECTION N°{selected_round.number} ==========\n")
 
             if selected_round.id_round is None:
@@ -159,7 +161,14 @@ class PresidentView:
 
     @classmethod
     def remove_novel(cls, novel_business: NovelBusiness, novel_id: int, round_id: int, year: int):
-        """Remove a novel from the selected round."""
+        """
+        Remove a novel from the selected round.
+        :param novel_business:
+        :param novel_id:
+        :param round_id:
+        :param year:
+        :return:
+        """
         if novel_business.remove_novel_from_round(novel_id, round_id, year):
             print("Roman retiré avec succès.")
         else:
@@ -167,7 +176,14 @@ class PresidentView:
 
     @classmethod
     def add_novel(cls, novel_business: NovelBusiness, novel_id: int, round_id: int, year: int):
-        """Add a novel to the selected round."""
+        """
+        Add a novel to the selected round.
+        :param novel_business:
+        :param novel_id:
+        :param round_id:
+        :param year:
+        :return:
+        """
         if novel_business.add_novel_to_round(novel_id, round_id, year):
             print("Roman ajouté avec succès.")
         else:
@@ -175,15 +191,21 @@ class PresidentView:
 
     @classmethod
     def edit_notes(cls, vote_business: VoteBusiness, year: int):
+        """
+        edit the notes available for the selected round.
+        :param vote_business:
+        :param year:
+        :return:
+        """
         changing_notes = True
         while changing_notes:
             list_vote: list[Vote] = vote_business.get_vote_for_year(year)
 
             print("[0] retour en arrière")
-            index=1
+            index = 1
             for vote in list_vote:
                 print(f"[{index}] {vote.novel.oneline_display()} ({vote.number_of_votes} votes)")
-                index+=1
+                index += 1
             choice = input_utils.input_number("\nVotre choix : ", 0, len(list_vote))
             if choice == 0:
                 changing_notes = False
@@ -192,4 +214,3 @@ class PresidentView:
                 new_note = input_utils.input_number("\nVotre note : ", 0, MAXINT)
                 vote.number_of_votes = new_note
                 vote_business.set_note(vote)
-

@@ -31,6 +31,10 @@ class Dao[T](ABC):
 
     @classmethod
     def get_primary_key(cls):
+        """
+        Return the primary key of the database associated with this DAO.
+        :return:
+        """
         return f"id_{cls.get_table_name()}"
 
     def get_all(self, cursor: Cursor) -> list[T]:
@@ -127,7 +131,8 @@ class Dao[T](ABC):
 
         return entities
 
-    def get_all_by_tiers_table_related_id(self, cursor: Cursor, related_dao: Dao, tiers_table: str, related_id: int) -> list[T]:
+    def get_all_by_tiers_table_related_id(self, cursor: Cursor, related_dao: Dao, tiers_table: str, related_id: int) -> \
+    list[T]:
         """
         Retrieve all entities related to another entity through an intermediate table.
 

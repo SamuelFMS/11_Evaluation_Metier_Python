@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
-from typing import List
 
 from models.vote import Vote
+
 
 @dataclass
 class Goncourt:

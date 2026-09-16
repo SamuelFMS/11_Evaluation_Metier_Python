@@ -1,4 +1,3 @@
-from business import vote_business
 from business.goncourt_business import GoncourtBusiness
 from business.novel_business import NovelBusiness
 from business.round_business import RoundBusiness
@@ -23,7 +22,8 @@ class UserView:
         cls.select_session(novel_business, round_business, sessions, vote_business)
 
     @classmethod
-    def select_session(cls, novel_business: NovelBusiness, round_business: RoundBusiness, sessions: list[Goncourt], vote_business: VoteBusiness):
+    def select_session(cls, novel_business: NovelBusiness, round_business: RoundBusiness, sessions: list[Goncourt],
+                       vote_business: VoteBusiness):
         """
         Display all available Goncourt sessions and let the user select one.
 
@@ -42,7 +42,8 @@ class UserView:
         cls.select_round(novel_business, round_business, selected_year, vote_business)
 
     @classmethod
-    def select_round(cls, novel_business: NovelBusiness, round_business: RoundBusiness, selected_year: int, vote_business: VoteBusiness):
+    def select_round(cls, novel_business: NovelBusiness, round_business: RoundBusiness, selected_year: int,
+                     vote_business: VoteBusiness):
         """
         Display all rounds available for a Goncourt session and let the user
         select one.
@@ -58,13 +59,13 @@ class UserView:
             print("0. Arreter")
             for index, round_ in enumerate(rounds, start=1):
                 print(f"{index}. Afficher la sélection n°{round_.number} ({round_.date_round.strftime("%d/%m/%Y")})")
-            print(f"{len(rounds)+1}. Afficher le résultat finale")
+            print(f"{len(rounds) + 1}. Afficher le résultat finale")
             if rounds:
                 choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds) + 1)
                 if choice == 0:
                     loop_select_round = False
                     continue
-                elif choice == len(rounds)+1:
+                elif choice == len(rounds) + 1:
                     cls.display_final_result_novels(vote_business, selected_year)
                 else:
                     selected_round = rounds[choice - 1]
@@ -89,7 +90,13 @@ class UserView:
         input()
 
     @classmethod
-    def display_final_result_novels(cls, vote_business: VoteBusiness, year:int):
+    def display_final_result_novels(cls, vote_business: VoteBusiness, year: int):
+        """
+        Display the final result of the year. a display the number of votes for each novel.
+        :param vote_business:
+        :param year:
+        :return:
+        """
         all_votes = vote_business.get_vote_for_year(year)
         all_votes.sort(key=lambda x: x.number_of_votes, reverse=True)
         for vote in all_votes:

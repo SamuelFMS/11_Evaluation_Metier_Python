@@ -5,6 +5,7 @@ from business.round_business import RoundBusiness
 
 Business.set_connection("goncourt_test", "goncourt_test")
 
+
 class TestRound(unittest.TestCase):
     def setUp(self):
         """Préparé avant chaque test"""

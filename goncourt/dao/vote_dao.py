@@ -19,6 +19,12 @@ class VoteDao(Dao[Vote]):
         return vote
 
     def remove_vote_for_year(self, cursor, year):
+        """
+        Remove unused vote for the given year.
+        :param cursor:
+        :param year:
+        :return:
+        """
         sql = f"""DELETE FROM {self.get_table_name()}
                     WHERE {self.get_table_name()}.id_year = %(id_year)s
                     AND {self.get_table_name()}.id_novel NOT IN (
@@ -37,6 +43,12 @@ class VoteDao(Dao[Vote]):
         return True
 
     def add_vote_for_year(self, cursor, year):
+        """
+        Recalculate vote for the given year. Adding missing vote
+        :param cursor:
+        :param year:
+        :return:
+        """
         sql = """INSERT INTO vote (number_of_vote, id_novel, id_year)
                     SELECT 0, step.id_novel, %(id_year)s
                     FROM step
@@ -56,8 +68,14 @@ class VoteDao(Dao[Vote]):
         return True
 
     def update_note(self, cursor, vote: Vote):
+        """
+        Update the note for the given vote.
+        :param cursor:
+        :param vote:
+        :return:
+        """
         sql = f"""UPDATE {self.get_table_name()}
                 SET number_of_vote = %(number_of_vote)s
                 WHERE {self.get_table_name()}.{self.get_primary_key()} = %(id_novel)s"""
-        cursor.execute(sql, {"number_of_vote": vote.number_of_votes,"id_novel": vote.id_vote})
+        cursor.execute(sql, {"number_of_vote": vote.number_of_votes, "id_novel": vote.id_vote})
         return cursor.rowcount == 1

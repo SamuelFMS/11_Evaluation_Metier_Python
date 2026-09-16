@@ -16,32 +16,60 @@ class NovelBusiness(Business):
     round_dao: RoundDao = RoundDao()
     vote_dao: VoteDao = VoteDao()
 
-    def get_by_id(self, id:int) -> Optional[Novel]:
+    def get_by_id(self, id: int) -> Optional[Novel]:
+        """
+        Retrieves a novel by its ID.
+        :param id:
+        :return:
+        """
         novel = self.novel_dao.get_by_id(self.get_connection().cursor(), id)
         if novel is not None and novel.id_novel is not None:
-            novel.author= self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
-            novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
+            novel.author = self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao,
+                                                             novel.id_novel)
+            novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(),
+                                                                                 self.novel_dao, novel.id_novel)
         return novel
 
-    def get_all(self)-> list[Novel]:
+    def get_all(self) -> list[Novel]:
+        """
+        Retrieves all novels from the database.
+        :return:
+        """
         list_novels = self.novel_dao.get_all(self.get_connection().cursor())
         if list_novels:
             for novel in list_novels:
                 if novel.id_novel:
-                    novel.author = self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
-                    novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
+                    novel.author = self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao,
+                                                                     novel.id_novel)
+                    novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(),
+                                                                                         self.novel_dao, novel.id_novel)
         return list_novels
 
-    def get_all_from_round(self, round_id:int) -> list[Novel]:
-        list_novels = self.novel_dao.get_all_by_tiers_table_related_id(self.get_connection().cursor(), self.round_dao, "step", round_id)
+    def get_all_from_round(self, round_id: int) -> list[Novel]:
+        """
+        Retrieves all the novel that gave the given round.
+        :param round_id: id of the round
+        :return:
+        """
+        list_novels = self.novel_dao.get_all_by_tiers_table_related_id(self.get_connection().cursor(), self.round_dao,
+                                                                       "step", round_id)
         if list_novels:
             for novel in list_novels:
                 if novel.id_novel:
-                    novel.author = self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
-                    novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(), self.novel_dao, novel.id_novel)
+                    novel.author = self.person_dao.get_by_related_id(self.get_connection().cursor(), self.novel_dao,
+                                                                     novel.id_novel)
+                    novel.main_character = self.main_character_dao.get_all_by_related_id(self.get_connection().cursor(),
+                                                                                         self.novel_dao, novel.id_novel)
         return list_novels
 
-    def add_novel_to_round(self, novel_id:int, id_round:int, year: int) -> bool:
+    def add_novel_to_round(self, novel_id: int, id_round: int, year: int) -> bool:
+        """
+        Add a novel to a round
+        :param novel_id: id of the novel
+        :param id_round: id of the round
+        :param year:
+        :return:
+        """
         connection = self.get_connection()
         if self.novel_dao.add_novel_to_round(connection.cursor(), novel_id, id_round):
             if self.vote_dao.add_vote_for_year(connection.cursor(), year):
@@ -54,7 +82,14 @@ class NovelBusiness(Business):
             connection.rollback()
             return False
 
-    def remove_novel_from_round(self, novel_id:int, id_round:int, year: int) -> bool:
+    def remove_novel_from_round(self, novel_id: int, id_round: int, year: int) -> bool:
+        """
+        Remove a novel from a round
+        :param novel_id: id of the novel
+        :param id_round: id of the round
+        :param year:
+        :return:
+        """
         connection = self.get_connection()
         if self.novel_dao.remove_novel_to_round(connection.cursor(), novel_id, id_round):
             if self.vote_dao.remove_vote_for_year(connection.cursor(), year):
@@ -66,4 +101,3 @@ class NovelBusiness(Business):
         else:
             connection.rollback()
             return False
-
