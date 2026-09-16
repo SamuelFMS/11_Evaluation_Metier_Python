@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 15 sep. 2026 à 09:35
+-- Généré le : mar. 15 sep. 2026 à 15:56
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -71,6 +71,26 @@ INSERT INTO `person` (`id_person`, `lastname`, `firstname`, `biography`) VALUES
 (14, 'PRUDHOMME', 'Sylvain', NULL),
 (15, 'ROLIN', 'Olivier', NULL),
 (16, 'TRIGANO', 'Patrice', NULL);
+
+--
+-- Déchargement des données de la table `round`
+--
+
+INSERT INTO `round` (`id_round`, `number`, `date_`, `id_year`) VALUES
+(1, 1, NULL, 2026),
+(2, 2, NULL, 2026),
+(3, 3, NULL, 2026);
+
+--
+-- Déchargement des données de la table `step`
+--
+
+INSERT INTO `step` (`id_novel`, `id_round`) VALUES
+(2, 1),
+(8, 1),
+(10, 1),
+(16, 1),
+(2, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

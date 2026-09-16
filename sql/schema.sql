@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 15 sep. 2026 à 09:36
+-- Généré le : mar. 15 sep. 2026 à 15:54
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -105,7 +105,7 @@ CREATE TABLE `roster` (
 
 CREATE TABLE `round` (
   `id_round` int(11) NOT NULL,
-  `number` varchar(50) DEFAULT NULL,
+  `number` int(50) DEFAULT NULL,
   `date_` date DEFAULT NULL,
   `id_year` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
