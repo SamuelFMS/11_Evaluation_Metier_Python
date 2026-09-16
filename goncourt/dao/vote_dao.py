@@ -18,7 +18,7 @@ class VoteDao(Dao[Vote]):
             vote.id_vote = record["id_vote"]
         return vote
 
-    def remove_vote_for_year(self, cursor, year):
+    def remove_vote_for_year(self, cursor, id_novel:int, year: int):
         """
         Remove unused vote for the given year.
         :param cursor:
@@ -26,45 +26,20 @@ class VoteDao(Dao[Vote]):
         :return:
         """
         sql = f"""DELETE FROM {self.get_table_name()}
-                    WHERE {self.get_table_name()}.id_year = %(id_year)s
-                    AND {self.get_table_name()}.id_novel NOT IN (
-                        SELECT step.id_novel
-                        FROM round
-                        JOIN step ON step.id_round = round.id_round
-                        WHERE round.id_year = %(id_year)s
-                        AND round.number = (
-                            SELECT MAX(number)
-                            FROM round
-                            WHERE id_year = %(id_year)s
-                        )
-                    );
+                    WHERE {self.get_table_name()}.id_year = %(id_year)s AND {self.get_table_name()}.id_novel = %(id_novel)s
             """
-        cursor.execute(sql, {"id_year": year})
+        cursor.execute(sql, {"id_year": year, "id_novel": id_novel})
         return True
 
-    def add_vote_for_year(self, cursor, year):
+    def add_vote_for_year(self, cursor,id_novel: int, year: int):
         """
-        Recalculate vote for the given year. Adding missing vote
+        Adding vote to the year
         :param cursor:
         :param year:
         :return:
         """
-        sql = """INSERT INTO vote (number_of_vote, id_novel, id_year)
-                    SELECT 0, step.id_novel, %(id_year)s
-                    FROM step
-                    JOIN round ON round.id_round = step.id_round
-                    WHERE round.id_year = %(id_year)s
-                      AND round.number = (
-                          SELECT MAX(number)
-                          FROM round
-                          WHERE id_year = %(id_year)s
-                      )
-                      AND step.id_novel NOT IN (
-                          SELECT id_novel
-                          FROM vote
-                          WHERE id_year = %(id_year)s
-                      );"""
-        cursor.execute(sql, {"id_year": year})
+        sql = """INSERT INTO vote (number_of_vote, id_novel, id_year) VALUES (0, %s, %s)"""
+        cursor.execute(sql, (id_novel, year))
         return True
 
     def update_note(self, cursor, vote: Vote):

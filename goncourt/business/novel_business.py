@@ -7,6 +7,7 @@ from dao.person_dao import PersonDao
 from dao.round_dao import RoundDao
 from dao.vote_dao import VoteDao
 from models.novel import Novel
+from models.round import Round
 
 
 class NovelBusiness(Business):
@@ -71,13 +72,14 @@ class NovelBusiness(Business):
         :return:
         """
         connection = self.get_connection()
+        round_number = self.round_dao.get_number(connection.cursor(), id_round)
+        round_number_max = self.round_dao.get_max_round_number(connection.cursor(), year)
+        if round_number == round_number_max:
+            self.vote_dao.add_vote_for_year(connection.cursor(), novel_id, year)
+
         if self.novel_dao.add_novel_to_round(connection.cursor(), novel_id, id_round):
-            if self.vote_dao.add_vote_for_year(connection.cursor(), year):
-                connection.commit()
-                return True
-            else:
-                connection.rollback()
-                return False
+            connection.commit()
+            return True
         else:
             connection.rollback()
             return False
@@ -91,8 +93,9 @@ class NovelBusiness(Business):
         :return:
         """
         connection = self.get_connection()
+        print(novel_id)
         if self.novel_dao.remove_novel_to_round(connection.cursor(), novel_id, id_round):
-            if self.vote_dao.remove_vote_for_year(connection.cursor(), year):
+            if self.vote_dao.remove_vote_for_year(connection.cursor(),novel_id, year):
                 connection.commit()
                 return True
             else:

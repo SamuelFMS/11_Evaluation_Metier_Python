@@ -1,10 +1,11 @@
+from business.business import Business
 from utils import input_utils
 from views.president_view import PresidentView
 from views.user_view import UserView
 
 # Press Maj+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
+Business.set_connection("goncourt_test", "goncourt_test")
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

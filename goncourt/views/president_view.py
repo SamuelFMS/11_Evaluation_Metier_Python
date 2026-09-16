@@ -64,7 +64,8 @@ class PresidentView:
             print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
             print("0. Stop")
             for index, round_ in enumerate(rounds, start=1):
-                print(f"{index}. Éditer la sélection n°{round_.number}")
+                assert round_.id_round
+                print(f"{index}. Éditer la sélection n°{round_business.get_number(round_.id_round)}")
             print(f"{len(rounds) + 1}. Éditer les notes")
             if not rounds:
                 return
@@ -73,21 +74,20 @@ class PresidentView:
 
             if choice == 0:
                 display_select_round = False
-                continue
             elif choice == len(rounds) + 1:
                 cls.edit_notes(vote_business, selected_year)
             else:
                 selected_round = rounds[choice - 1]
-                previous_round = None
+                id_parent_round = selected_round.id_round_parent
+                if id_parent_round is None:
+                    previous_round = None
+                else:
+                    previous_round = round_business.get_round_by_id(id_parent_round)
 
-                for round_ in rounds:
-                    if round_.number == selected_round.number - 1:
-                        previous_round = round_
-
-                cls.display_round_novels(novel_business, selected_round, previous_round, selected_year)
+                cls.display_round_novels(round_business, novel_business, selected_round, previous_round, selected_year)
 
     @classmethod
-    def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round, previous_round: Optional[Round],
+    def display_round_novels(cls,round_business:RoundBusiness, novel_business: NovelBusiness, selected_round: Round, previous_round: Optional[Round],
                              year: int):
         """
         Display the novels available for the selected round and allow the
@@ -100,7 +100,8 @@ class PresidentView:
         """
         display_round = True
         while (display_round):
-            print(f"\n========== SÉLECTION N°{selected_round.number} ==========\n")
+            assert selected_round.id_round
+            print(f"\n========== SÉLECTION N°{round_business.get_number(selected_round.id_round)} ==========\n")
 
             if selected_round.id_round is None:
                 return

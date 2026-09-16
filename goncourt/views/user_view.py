@@ -58,28 +58,27 @@ class UserView:
             print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
             print("0. Arreter")
             for index, round_ in enumerate(rounds, start=1):
-                print(f"{index}. Afficher la sélection n°{round_.number} ({round_.date_round.strftime("%d/%m/%Y")})")
+                print(f"{index}. Afficher la sélection n°{round_business.get_number(round_.id_round)}")
             print(f"{len(rounds) + 1}. Afficher le résultat finale")
             if rounds:
                 choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds) + 1)
                 if choice == 0:
                     loop_select_round = False
-                    continue
                 elif choice == len(rounds) + 1:
                     cls.display_final_result_novels(vote_business, selected_year)
                 else:
                     selected_round = rounds[choice - 1]
-                    cls.display_round_novels(novel_business, selected_round)
+                    cls.display_round_novels(round_business, novel_business, selected_round)
 
     @classmethod
-    def display_round_novels(cls, novel_business: NovelBusiness, selected_round: Round):
+    def display_round_novels(cls,round_business:RoundBusiness, novel_business: NovelBusiness, selected_round: Round):
         """
         Display all novels belonging to the selected round.
 
         :param novel_business: Business service used to retrieve novels.
         :param selected_round: Round whose novels should be displayed.
         """
-        print(f"\n========== SÉLECTION N°{selected_round.number} ==========\n")
+        print(f"\n========== SÉLECTION N°{round_business.get_number(selected_round.id_round)} ==========\n")
 
         if selected_round.id_round:
             novels = novel_business.get_all_from_round(selected_round.id_round)
