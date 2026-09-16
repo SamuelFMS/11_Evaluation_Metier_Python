@@ -57,7 +57,7 @@ class UserView:
             print(f"\n========== PRIX GONCOURT {selected_year} ==========\n")
             print("0. Arreter")
             for index, round_ in enumerate(rounds, start=1):
-                print(f"{index}. Afficher la sélection n°{round_.number}")
+                print(f"{index}. Afficher la sélection n°{round_.number} ({round_.date_round.strftime("%d/%m/%Y")})")
             print(f"{len(rounds)+1}. Afficher le résultat finale")
             if rounds:
                 choice = input_utils.input_number("\nVotre choix : ", 0, len(rounds) + 1)
