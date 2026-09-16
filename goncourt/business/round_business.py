@@ -9,4 +9,4 @@ class RoundBusiness(Business):
     goncourt_dao: GoncourtDao = GoncourtDao()
 
     def get_round_for_year(self, year: int) -> list[Round]:
-        return self.round_dao.get_all_by_related_id(self.connection.cursor(), self.goncourt_dao, year)
+        return self.round_dao.get_all_by_related_id(self.get_connection().cursor(), self.goncourt_dao, year)
