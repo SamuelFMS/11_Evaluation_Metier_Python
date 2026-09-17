@@ -82,7 +82,7 @@ class NovelBusiness(Business):
             return True
         else:
             connection.rollback()
-            assert False
+            raise RuntimeError("Une erreur c'est produite lors de l'ajout du roman au round")
 
     def remove_novel_from_round(self, novel_id: int, id_round: int, year: int) -> bool:
         """
@@ -100,7 +100,7 @@ class NovelBusiness(Business):
                 return True
             else:
                 connection.rollback()
-                assert False
+                raise RuntimeError("Une erreur c'est produite lors de le la suppression du roman au vote")
         else:
             connection.rollback()
-            assert False
+            raise RuntimeError("Une erreur c'est produite lors de l'ajout du roman au round")
