@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_NakjULKeEfGynZh4XVi-2A" name="goncourt">
+  <eAnnotations xmi:id="_NakjUbKeEfGynZh4XVi-2A" source="Objing">
+    <contents xmi:type="uml:Property" xmi:id="_NakjUrKeEfGynZh4XVi-2A" name="exporterVersion">
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_NakjU7KeEfGynZh4XVi-2A" value="3.0.0"/>
+    </contents>
+  </eAnnotations>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NakjVLKeEfGynZh4XVi-2A" name="Round">
+    <ownedAttribute xmi:id="_NakjVbKeEfGynZh4XVi-2A" name="novel" visibility="public" type="_NakjXbKeEfGynZh4XVi-2A" isUnique="false" association="_NakjWrKeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NakjVrKeEfGynZh4XVi-2A" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjV7KeEfGynZh4XVi-2A"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjWLKeEfGynZh4XVi-2A" name="number" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjWbKeEfGynZh4XVi-2A" name="dateRound" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjWrKeEfGynZh4XVi-2A" memberEnd="_NakjVbKeEfGynZh4XVi-2A _NakjW7KeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjW7KeEfGynZh4XVi-2A" visibility="public" type="_NakjVLKeEfGynZh4XVi-2A" isUnique="false" association="_NakjWrKeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NakjXLKeEfGynZh4XVi-2A" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NakjXbKeEfGynZh4XVi-2A" name="Novel">
+    <ownedAttribute xmi:id="_NakjXrKeEfGynZh4XVi-2A" name="mainCharacter" visibility="public" type="_NakjcbKeEfGynZh4XVi-2A" isUnique="false" aggregation="composite" association="_Nakja7KeEfGynZh4XVi-2A">
+      <ownedComment xmi:id="_NakjX7KeEfGynZh4XVi-2A">
+        <body>&lt;Saisir le texte de la note ici></body>
+      </ownedComment>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NakjYLKeEfGynZh4XVi-2A" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjYbKeEfGynZh4XVi-2A"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjYrKeEfGynZh4XVi-2A" name="person" visibility="public" type="_NakjuLKeEfGynZh4XVi-2A" isUnique="false" association="_NakjbbKeEfGynZh4XVi-2A"/>
+    <ownedAttribute xmi:id="_NakjY7KeEfGynZh4XVi-2A" name="title" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjZLKeEfGynZh4XVi-2A" name="summary" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjZbKeEfGynZh4XVi-2A" name="editor" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjZrKeEfGynZh4XVi-2A" name="publicationDate" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDate"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjZ7KeEfGynZh4XVi-2A" name="numberOfPages" visibility="public" isUnique="false">
+      <ownedComment xmi:id="_NakjaLKeEfGynZh4XVi-2A">
+        <body>&lt;Saisir le texte de la note ici></body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjabKeEfGynZh4XVi-2A" name="ISBN" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjarKeEfGynZh4XVi-2A" name="publisherPrice" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Nakja7KeEfGynZh4XVi-2A" memberEnd="_NakjXrKeEfGynZh4XVi-2A _NakjbLKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjbLKeEfGynZh4XVi-2A" visibility="public" type="_NakjXbKeEfGynZh4XVi-2A" isUnique="false" association="_Nakja7KeEfGynZh4XVi-2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjbbKeEfGynZh4XVi-2A" memberEnd="_NakjYrKeEfGynZh4XVi-2A _NakjbrKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjbrKeEfGynZh4XVi-2A" visibility="public" type="_NakjXbKeEfGynZh4XVi-2A" isUnique="false" association="_NakjbbKeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Nakjb7KeEfGynZh4XVi-2A" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjcLKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NakjcbKeEfGynZh4XVi-2A" name="MainCharacter">
+    <ownedAttribute xmi:id="_NakjcrKeEfGynZh4XVi-2A" name="name" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_Nakjc7KeEfGynZh4XVi-2A" name="Jury">
+    <ownedAttribute xmi:id="_NakjdLKeEfGynZh4XVi-2A" name="person" visibility="public" type="_NakjuLKeEfGynZh4XVi-2A" isUnique="false" association="_NakjdrKeEfGynZh4XVi-2A"/>
+    <ownedAttribute xmi:id="_NakjdbKeEfGynZh4XVi-2A" name="isPresident" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjdrKeEfGynZh4XVi-2A" memberEnd="_NakjdLKeEfGynZh4XVi-2A _Nakjd7KeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_Nakjd7KeEfGynZh4XVi-2A" visibility="public" type="_Nakjc7KeEfGynZh4XVi-2A" isUnique="false" association="_NakjdrKeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjeLKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NakjebKeEfGynZh4XVi-2A" name="Goncourt">
+    <ownedComment xmi:id="_NakjerKeEfGynZh4XVi-2A">
+      <body>&lt;Saisir le texte de la note ici></body>
+    </ownedComment>
+    <ownedAttribute xmi:id="_Nakje7KeEfGynZh4XVi-2A" name="round" visibility="public" type="_NakjVLKeEfGynZh4XVi-2A" isUnique="false" aggregation="composite" association="_NakjhbKeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NakjfLKeEfGynZh4XVi-2A" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjfbKeEfGynZh4XVi-2A"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjfrKeEfGynZh4XVi-2A" name="result" visibility="public" type="_NakjjLKeEfGynZh4XVi-2A" isUnique="false" aggregation="composite" association="_Nakjh7KeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Nakjf7KeEfGynZh4XVi-2A" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjgLKeEfGynZh4XVi-2A"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjgbKeEfGynZh4XVi-2A" name="jury" visibility="public" type="_Nakjc7KeEfGynZh4XVi-2A" isUnique="false" aggregation="composite" association="_NakjibKeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NakjgrKeEfGynZh4XVi-2A" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Nakjg7KeEfGynZh4XVi-2A"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjhLKeEfGynZh4XVi-2A" name="year" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjhbKeEfGynZh4XVi-2A" memberEnd="_Nakje7KeEfGynZh4XVi-2A _NakjhrKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjhrKeEfGynZh4XVi-2A" visibility="public" type="_NakjebKeEfGynZh4XVi-2A" isUnique="false" association="_NakjhbKeEfGynZh4XVi-2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Nakjh7KeEfGynZh4XVi-2A" memberEnd="_NakjfrKeEfGynZh4XVi-2A _NakjiLKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjiLKeEfGynZh4XVi-2A" visibility="public" type="_NakjebKeEfGynZh4XVi-2A" isUnique="false" association="_Nakjh7KeEfGynZh4XVi-2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjibKeEfGynZh4XVi-2A" memberEnd="_NakjgbKeEfGynZh4XVi-2A _NakjirKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjirKeEfGynZh4XVi-2A" visibility="public" type="_NakjebKeEfGynZh4XVi-2A" isUnique="false" association="_NakjibKeEfGynZh4XVi-2A">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Nakji7KeEfGynZh4XVi-2A" value="*"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NakjjLKeEfGynZh4XVi-2A" name="Vote">
+    <ownedAttribute xmi:id="_NakjjbKeEfGynZh4XVi-2A" name="novel" visibility="public" type="_NakjXbKeEfGynZh4XVi-2A" isUnique="false" association="_Nakjj7KeEfGynZh4XVi-2A"/>
+    <ownedAttribute xmi:id="_NakjjrKeEfGynZh4XVi-2A" name="numberOfVote" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Nakjj7KeEfGynZh4XVi-2A" memberEnd="_NakjjbKeEfGynZh4XVi-2A _NakjkLKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjkLKeEfGynZh4XVi-2A" visibility="public" type="_NakjjLKeEfGynZh4XVi-2A" isUnique="false" association="_Nakjj7KeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjkbKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_NakjkrKeEfGynZh4XVi-2A" name="User"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Nakjk7KeEfGynZh4XVi-2A" memberEnd="_NakjlLKeEfGynZh4XVi-2A _NakjlrKeEfGynZh4XVi-2A" navigableOwnedEnd="_NakjlLKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjlLKeEfGynZh4XVi-2A" visibility="public" type="_Nakjo7KeEfGynZh4XVi-2A" isUnique="false" association="_Nakjk7KeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjlbKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_NakjlrKeEfGynZh4XVi-2A" visibility="public" type="_NakjkrKeEfGynZh4XVi-2A" isUnique="false" association="_Nakjk7KeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Nakjl7KeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_NakjmLKeEfGynZh4XVi-2A" name="Jury President"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjmbKeEfGynZh4XVi-2A" memberEnd="_NakjmrKeEfGynZh4XVi-2A _NakjnLKeEfGynZh4XVi-2A" navigableOwnedEnd="_NakjmrKeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_NakjmrKeEfGynZh4XVi-2A" visibility="public" type="_NakjsbKeEfGynZh4XVi-2A" isUnique="false" association="_NakjmbKeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Nakjm7KeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_NakjnLKeEfGynZh4XVi-2A" visibility="public" type="_NakjmLKeEfGynZh4XVi-2A" isUnique="false" association="_NakjmbKeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjnbKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NakjnrKeEfGynZh4XVi-2A" memberEnd="_Nakjn7KeEfGynZh4XVi-2A _NakjobKeEfGynZh4XVi-2A" navigableOwnedEnd="_Nakjn7KeEfGynZh4XVi-2A">
+    <ownedEnd xmi:id="_Nakjn7KeEfGynZh4XVi-2A" visibility="public" type="_NakjqrKeEfGynZh4XVi-2A" isUnique="false" association="_NakjnrKeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjoLKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+    <ownedEnd xmi:id="_NakjobKeEfGynZh4XVi-2A" visibility="public" type="_NakjmLKeEfGynZh4XVi-2A" isUnique="false" association="_NakjnrKeEfGynZh4XVi-2A">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NakjorKeEfGynZh4XVi-2A"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Nakjo7KeEfGynZh4XVi-2A" name="View books">
+    <ownedComment xmi:id="_NakjpLKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjpbKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjprKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_Nakjp7KeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjqLKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjqbKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_NakjqrKeEfGynZh4XVi-2A" name="Update Selection Round">
+    <ownedComment xmi:id="_Nakjq7KeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjrLKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjrbKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjrrKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_Nakjr7KeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjsLKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_NakjsbKeEfGynZh4XVi-2A" name="Enter Final Vote Counts">
+    <ownedComment xmi:id="_NakjsrKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_Nakjs7KeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjtLKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjtbKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_NakjtrKeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+    <ownedComment xmi:id="_Nakjt7KeEfGynZh4XVi-2A">
+      <body>...</body>
+    </ownedComment>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_NakjuLKeEfGynZh4XVi-2A" name="Person">
+    <ownedAttribute xmi:id="_NakjubKeEfGynZh4XVi-2A" name="firstName" visibility="public" isUnique="false">
+      <ownedComment xmi:id="_NakjurKeEfGynZh4XVi-2A">
+        <body>&lt;Saisir le texte de la note ici></body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_Nakju7KeEfGynZh4XVi-2A" name="lastName" visibility="public" isUnique="false">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_NakjvLKeEfGynZh4XVi-2A" name="biography" visibility="public" isUnique="false">
+      <ownedComment xmi:id="_NakjvbKeEfGynZh4XVi-2A">
+        <body>&lt;Saisir le texte de la note ici></body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </ownedAttribute>
+  </packagedElement>
+</uml:Model>
