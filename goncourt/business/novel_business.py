@@ -94,7 +94,6 @@ class NovelBusiness(Business):
         """
         connection = self.get_connection()
         cursor = connection.cursor()
-        print(novel_id)
         if self.novel_dao.remove_novel_to_round(cursor, novel_id, id_round):
             if self.vote_dao.remove_vote_for_year(cursor, novel_id, year):
                 connection.commit()
