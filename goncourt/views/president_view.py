@@ -203,10 +203,8 @@ class PresidentView:
             list_vote: list[Vote] = vote_business.get_vote_for_year(year)
 
             print("[0] retour en arrière")
-            index = 1
-            for vote in list_vote:
+            for index, vote in enumerate(list_vote, start=1):
                 print(f"[{index}] {vote.novel.oneline_display()} ({vote.number_of_votes} votes)")
-                index += 1
             choice = input_utils.input_number("\nVotre choix : ", 0, len(list_vote))
             if choice == 0:
                 changing_notes = False
