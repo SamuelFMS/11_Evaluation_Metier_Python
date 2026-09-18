@@ -80,7 +80,8 @@ CREATE TABLE `novel` (
   `number_of_pages` smallint(6) DEFAULT NULL,
   `ISBN` decimal(13,0) DEFAULT NULL,
   `publisher_price` decimal(7,2) DEFAULT NULL,
-  `id_person` int(11) NOT NULL
+  `id_person` int(11) NOT NULL,
+  `id_editor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- --------------------------------------------------------
@@ -284,8 +285,8 @@ ALTER TABLE `main_character`
 -- Contraintes pour la table `novel`
 --
 ALTER TABLE `novel`
-  ADD CONSTRAINT `novel_ibfk_1` FOREIGN KEY (`id_person`) REFERENCES `person` (`id_person`);
-
+  ADD CONSTRAINT `novel_ibfk_1` FOREIGN KEY (`id_person`) REFERENCES `person` (`id_person`),
+  ADD CONSTRAINT `novel_ibfk_2` FOREIGN KEY (`id_editor`) REFERENCES `editor` (`id_editor`);
 --
 -- Contraintes pour la table `roster`
 --
