@@ -99,19 +99,6 @@ CREATE TABLE `person` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `person`
---
-
-CREATE TABLE `person` (
-  `id_person` int(11) NOT NULL,
-  `lastname` varchar(50) DEFAULT NULL,
-  `firstname` varchar(50) DEFAULT NULL,
-  `biography` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `roster`
 --
 
