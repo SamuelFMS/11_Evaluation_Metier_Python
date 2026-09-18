@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mer. 16 sep. 2026 à 14:08
+-- Généré le : ven. 18 sep. 2026 à 13:40
 -- Version du serveur : 11.7.1-MariaDB
 -- Version de PHP : 8.5.4
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `goncourt_test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `editor`
+--
+
+CREATE TABLE `editor` (
+  `id_editor` int(11) NOT NULL,
+  `name_editor` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -70,6 +81,19 @@ CREATE TABLE `novel` (
   `ISBN` decimal(13,0) DEFAULT NULL,
   `publisher_price` decimal(7,2) DEFAULT NULL,
   `id_person` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `person`
+--
+
+CREATE TABLE `person` (
+  `id_person` int(11) NOT NULL,
+  `lastname` varchar(50) DEFAULT NULL,
+  `firstname` varchar(50) DEFAULT NULL,
+  `biography` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- --------------------------------------------------------
@@ -139,6 +163,12 @@ CREATE TABLE `vote` (
 --
 
 --
+-- Index pour la table `editor`
+--
+ALTER TABLE `editor`
+  ADD PRIMARY KEY (`id_editor`);
+
+--
 -- Index pour la table `goncourt`
 --
 ALTER TABLE `goncourt`
@@ -204,6 +234,12 @@ ALTER TABLE `vote`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `editor`
+--
+ALTER TABLE `editor`
+  MODIFY `id_editor` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `jury`
